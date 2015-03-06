@@ -11,7 +11,7 @@ class SlimdownBase {
 
     function staticPage($slug=''){
 
-        $mdFile = $this->getTemplate($slug);
+        $mdFile = $this->getPage($slug);
 
         if ($mdFile) {
 
@@ -22,17 +22,15 @@ class SlimdownBase {
             $yaml = $document->getYAML();
             $html = $document->getContent();
 
-            $data = $yaml;
-            $data['html'] = $html;
+            $this->data = $yaml;
+            $this->data['html'] = $html;
 
-            $this->app->render(APP_ROOT.'/app/templates/default.tpl', $data);
-
+            $this->setTemplate();
+            $this->app->render($this->template, $this->data);
         } else {
-
             $this->app->notFound();
             return;
         }
-
     }
 
     /**
@@ -40,7 +38,7 @@ class SlimdownBase {
      * @param  string $slug [description]
      * @return [type]       [description]
      */
-    private function getTemplate($slug=''){
+    private function getPage($slug=''){
         if (empty($slug)){
             $slug = array('index');
         }
@@ -56,8 +54,21 @@ class SlimdownBase {
         }
         return false;
 
+    }
 
-
+    /**
+     * Figure out what template to use based on the front matter
+     */
+    private function setTemplate(){
+        if (isset($this->data['template']) && !empty($this->data['template'])){
+            $template = APP_ROOT.'/app/templates/'.trim($this->data['template']).'.tpl';
+            if (file_exists($template)){
+                $this->template = $template;
+                return;
+            }
+        }
+        //default
+        $this->template = APP_ROOT.'/app/templates/default.tpl';
     }
 
 

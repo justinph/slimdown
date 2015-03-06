@@ -7,6 +7,8 @@
 
     </head>
     <body>
+        {block name='body'}
         {$html}
+        {/block}
     </body>
 </html>

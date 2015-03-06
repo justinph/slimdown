@@ -11,7 +11,8 @@ require APP_ROOT.'/vendor/autoload.php';
 
 //start slim
 $app = new \Slim\Slim(array(
-    'view' => new \Slim\Views\Smarty()
+    'view' => new \Slim\Views\Smarty(),
+    'templates.path' => APP_ROOT . '/app/templates'
 ));
 
 
