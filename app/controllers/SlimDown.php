@@ -11,6 +11,12 @@ class SlimdownBase {
 
     function staticPage($slug=''){
 
+
+       // $dirStruct =  $this->getFileStruct(APP_ROOT .'/pages');
+
+       // var_dump($dirStruct);
+
+
         $mdFile = $this->getPage($slug);
 
         if ($mdFile) {
@@ -71,6 +77,46 @@ class SlimdownBase {
         $this->template = APP_ROOT.'/app/templates/default.tpl';
     }
 
+    private function getFileStruct($dir){
+        $command = "find ". $dir . " -name '*.md'";
+        $list = array();
+
+        exec ( $command, $list );
+
+        $output = new \StdClass;
+        $list = array_reverse($list);
+
+        $parser = new \Mni\FrontYAML\Parser();
+
+        $pages = array();
+
+
+
+        foreach ($list as $path) {
+            $relpath = str_replace($dir, '', $path);
+            $pageContents = file_get_contents($path);
+            $document = $parser->parse($pageContents);
+            $info = $document->getYAML();
+            $info['fullpath'] = $path;
+
+            $part = explode('/', $relpath);
+            $relfile = str_replace('.md', '', $part[count($part)-1]);
+
+
+            $slug = $relpath;
+            if (substr($slug, -9) == '/index.md'){
+                $slug = str_replace('index.md','', $slug);
+            } else {
+                $slug = str_replace('.md','/', $slug);
+            }
+            $pages[$slug] = $info;
+
+
+        }
+
+
+        return $pages;
+    }
 
 
 
