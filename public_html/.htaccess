@@ -1,0 +1,10 @@
+# ----------------------------------------------------------------------
+# Start rewrite engine
+# http://www.slimframework.com/documentation/stable#routing-indepth-with-rewrite
+# http://httpd.apache.org/docs/current/rewrite/flags.html#flag_pt
+# ----------------------------------------------------------------------
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ /index.php/$1 [QSA,L]

@@ -1,0 +1,15 @@
+{
+    "require": {
+        "slim/slim": "2.*",
+        "mnapoli/front-yaml": "*",
+        "smarty/smarty": "3.1.21",
+        "slim/views": "0.1.*"
+    },
+    "autoload": {
+        "classmap": [
+            "app/controllers",
+            "vendor/smarty/smarty/libs"
+        ],
+        "files": []
+    }
+}
