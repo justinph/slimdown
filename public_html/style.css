@@ -1,0 +1,19 @@
+*{
+    box-sizing: border-box;
+}
+
+ul{
+    padding-left: 1em;
+}
+
+#sidebar{
+    width: 30%;
+    float: left;
+    padding: 10px;
+}
+
+main{
+    margin-left: 32%;
+    width: 68%;
+    padding: 10px 2em;
+}

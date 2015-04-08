@@ -8,7 +8,8 @@ class SlimdownBase {
     function __construct() {
         
         $this->flatStruct = array();
-        $markdownDir = APP_ROOT .'/pages';
+        //$markdownDir = APP_ROOT .'/pages';
+        $markdownDir = '/Users/jheideman/Sites/mpr-pages-test/pages';
 
         $this->app = Slim::getInstance();
         $this->parser =  new \Mni\FrontYAML\Parser();
@@ -26,8 +27,8 @@ class SlimdownBase {
             $this->app->notFound();
             return;
         }
-
-        $this->data = (array) $this->flatStruct[$slug];   
+        
+        $this->data = (array) $this->flatStruct[$slug];
         $fileContents = file_get_contents($this->data['fullpath']);
 
         $document = $this->parser->parse($fileContents);
