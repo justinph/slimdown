@@ -22,7 +22,12 @@
                  <h4>Sibling Pages</h4>
                  <ul>
                 {foreach from=$siblings item=sib}
-                    <li><a href="{$sib->url_path}">{$sib->title}</a></li>
+                    <li>{if isset($sib->self)}
+                        {$sib->title}
+                        {else}
+                        <a href="{$sib->url_path}">{$sib->title}</a>
+                    {/if}
+                    </li>
                 {/foreach}
                 </ul>
                 </nav>

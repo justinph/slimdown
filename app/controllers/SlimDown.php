@@ -165,13 +165,17 @@ class SlimdownBase {
                 //siblings
                 $potentialParentPath = substr($potentialMatchPath, 0, strlen($parentPath));
                 if ($potentialParentPath === $parentPath 
-                    && $tempDepth === $myDepth
-                    && $url !== $potentialMatchPath){
+                    && $tempDepth === $myDepth){
                     $sib = clone($potentialMatchInfo);
+
+                    if ($url === $potentialMatchPath){
+                        $sib->self = true;
+                    }
                     unset($sib->parent, $sib->siblings, $sib->children);
                     $sib->url_path = $potentialMatchPath;
                     $siblings[] = $sib;
                 }
+
 
                 //figure out children
                 $potentialChildrenPath = substr($potentialMatchPath, 0, strlen($url));
@@ -186,7 +190,7 @@ class SlimdownBase {
             if (!empty($children)){
                 $this->flatStruct[$url]->children = $children;
             }
-            if (!empty($siblings)){
+            if (!empty($siblings) && count($siblings) > 1){
                 $this->flatStruct[$url]->siblings = $siblings;
             }
         }
