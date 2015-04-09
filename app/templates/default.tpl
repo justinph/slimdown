@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
         <link rel="stylesheet" type="text/css" href="/normalize.css">
         <link rel="stylesheet" type="text/css" href="/style.css">
-
+        {block name='head'}{/block}
     </head>
     <body>
 
@@ -46,8 +46,11 @@
             </nav>
 
          <main>
-              
-
+        
+        {if isset($title)}      
+        <h1>{$title}</h1>
+        {/if}
+        
         {block name='body'}
         {$html}
         {/block}

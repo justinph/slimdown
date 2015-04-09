@@ -66,8 +66,8 @@ class SlimdownBase {
      * Figure out what template to use based on the front matter
      */
     private function setTemplate(){
-        if (isset($this->data->template) && !empty($this->data->template)){
-            $template = APP_ROOT.'/app/templates/'.trim($this->data->template).'.tpl';
+        if (isset($this->data['template']) && !empty($this->data['template'])){
+            $template = APP_ROOT.'/app/templates/'.trim($this->data['template']).'.tpl';
             if (file_exists($template)){
                 $this->template = $template;
                 return;
